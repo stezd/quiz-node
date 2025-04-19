@@ -6,6 +6,14 @@ const port = process.env.PORT || 3000;
 // to parse json request body
 app.use(json());
 
+// for logging
+const loggingMiddleware = (req, res, next) => {
+    console.log(`${req.method} - ${req.url}`);
+    next();
+};
+
+app.use(loggingMiddleware);
+
 let mockUsers = [
     { id: 1, username: "jondo", displayName: "John Doe" },
     { id: 2, username: "janes", displayName: "Jane Smith" },

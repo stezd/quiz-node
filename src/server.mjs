@@ -1,22 +1,33 @@
 import express, { json } from "express";
 import favicon from "serve-favicon";
 import * as path from "node:path";
+import { fileURLToPath } from "url";
+
 const app = express();
 const port = process.env.PORT || 3000;
 
-// to parse json request body
-app.use(json());
-
-//favicon
+//middlewares
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.resolve(path.dirname(__filename), "..");
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
-
-// for logging
+app.use(json());
 const loggingMiddleware = (req, res, next) => {
     console.log(`${req.method} - ${req.url}`);
     next();
 };
-
 app.use(loggingMiddleware);
+
+const resolveIndexByUserId = (req, res, next) => {
+    const {
+        params: { id },
+    } = req;
+    const parsedId = parseInt(id);
+    if (isNaN(parsedId)) return res.sendStatus(400);
+    const findUserIndex = mockUsers.findIndex(user => user.id === parsedId);
+    if (findUserIndex === -1) return res.sendStatus(404);
+    req.findUserIndex = findUserIndex;
+    next();
+};
 
 let mockUsers = [
     { id: 1, username: "jondo", displayName: "John Doe" },
@@ -39,7 +50,7 @@ app.listen(port, () =>
 );
 
 app.get("/", (req, res) => {
-    res.status(200).send("Welcome to the api!");
+    res.status(201).send("Selamat datang di API!");
 });
 
 app.get("/api/users", (req, res) => {
@@ -84,24 +95,9 @@ app.get("/api/products", (req, res) => {
     res.send(mockProducts);
 });
 
-app.get("/favicon.ico", (req, res) => {
-    res.send();
-});
-
-app.put("/api/users/:id", (req, res) => {
-    const {
-        body,
-        params: { id },
-    } = req;
-
-    const parsedId = parseInt(id);
-    if (isNaN(parsedId)) return res.sendStatus(400);
-
-    const findUserIndex = mockUsers.findIndex(user => user.id === parsedId);
-
-    if (findUserIndex === -1) return res.sendStatus(404);
-
-    mockUsers[findUserIndex] = { id: parsedId, ...body };
+app.put("/api/users/:id", resolveIndexByUserId, (req, res) => {
+    const { body, findUserIndex } = req;
+    mockUsers[findUserIndex] = { id: mockUsers[findUserIndex].id, ...body };
     return res.sendStatus(204);
 });
 

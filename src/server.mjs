@@ -106,10 +106,3 @@ app.delete("/api/users/:id", resolveIndexByUserId, (req, res) => {
     mockUsers.splice(findUserIndex, 1);
     return res.sendStatus(200);
 });
-// PUT
-// PATCH
-// DELETE
-
-// i wanna test something here
-// i also wanna test something here
-// yeah komat kamit

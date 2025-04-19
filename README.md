@@ -1,10 +1,7 @@
-Great start! Here's a **refined version** of your `README.md` for the **IT-Today Backend API**, with some improvements in formatting, clarity, and structure — ready to drop into your repo:
 
----
+# 🎯 xxxx Backend API
 
-# 🎯 IT-TODAY Backend API
-
-A RESTful backend service for the IT-TODAY 2025 platform, built with **Node.js**, **Express.js**, **PostgreSQL**, and **Prisma ORM**. This API handles user data, products, and future endpoints related to the IT-TODAY event.
+A RESTful backend service for the xxxx 2025 platform, built with **Node.js**, **Express.js**, **PostgreSQL**, and **Prisma ORM**. This API handles user data, products, and future endpoints related to the IT-TODAY event.
 
 ---
 
@@ -86,7 +83,6 @@ This project is licensed under the [MIT License](LICENSE).
 ## 👨‍💻 Maintainers
 
 - Aldi Pramudya – [@steezydi](https://github.com/steezydi)
-- Divisi PDI – IT-TODAY 2025
 
 ---
 

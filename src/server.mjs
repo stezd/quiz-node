@@ -98,7 +98,7 @@ app.get("/api/products", (req, res) => {
 app.put("/api/users/:id", resolveIndexByUserId, (req, res) => {
     const { body, findUserIndex } = req;
     mockUsers[findUserIndex] = { id: mockUsers[findUserIndex].id, ...body };
-    return res.sendStatus(204);
+    return res.sendStatus(200);
 });
 
 app.patch("/api/users/:id", (req, res) => {

@@ -1,10 +1,14 @@
 import express, { json } from "express";
-
+import favicon from "serve-favicon";
+import * as path from "node:path";
 const app = express();
 const port = process.env.PORT || 3000;
 
 // to parse json request body
 app.use(json());
+
+//favicon
+app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 
 // for logging
 const loggingMiddleware = (req, res, next) => {
@@ -78,6 +82,10 @@ app.get("/api/users/:id", (req, res) => {
 
 app.get("/api/products", (req, res) => {
     res.send(mockProducts);
+});
+
+app.get("/favicon.ico", (req, res) => {
+    res.send();
 });
 
 app.put("/api/users/:id", (req, res) => {

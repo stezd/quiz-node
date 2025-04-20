@@ -10,6 +10,14 @@ import { resolveIndexByUserId } from "../utils/middlewares.mjs";
 const router = Router();
 
 router.get("/api/users", checkSchema(queryUserValidationSchema), (req, res) => {
+    console.log(req.session.id);
+    req.sessionStore.get(req.session.id, (err, sessionData) => {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+        console.log(sessionData);
+    });
     const result = validationResult(req);
     console.log(result);
     if (Object.keys(req.query).length === 0) return res.send(mockUsers);

@@ -1,9 +1,64 @@
 export const mockUsers = [
-    { id: 1, username: "jondo", displayName: "John Doe" },
-    { id: 2, username: "janes", displayName: "Jane Smith" },
-    { id: 3, username: "aljon", displayName: "Alice Johnson" },
-    { id: 4, username: "bobby3", displayName: "Bob Brown" },
-    { id: 5, username: "charl", displayName: "Charlie Davis" },
+    {
+        id: 1,
+        username: "jondo",
+        displayName: "John Doe",
+        password: "password123",
+    },
+    {
+        id: 2,
+        username: "janes",
+        displayName: "Jane Smith",
+        password: "securepass",
+    },
+    {
+        id: 3,
+        username: "aljon",
+        displayName: "Alice Johnson",
+        password: "alice2023",
+    },
+    {
+        id: 4,
+        username: "bobby3",
+        displayName: "Bob Brown",
+        password: "bobbyrocks",
+    },
+    {
+        id: 5,
+        username: "charl",
+        displayName: "Charlie Davis",
+        password: "charlie123",
+    },
+    {
+        id: 6,
+        username: "emilyw",
+        displayName: "Emily White",
+        password: "emilypass",
+    },
+    {
+        id: 7,
+        username: "mikep",
+        displayName: "Mike Peterson",
+        password: "mike2023",
+    },
+    {
+        id: 8,
+        username: "sarahl",
+        displayName: "Sarah Lee",
+        password: "sarahlee",
+    },
+    {
+        id: 9,
+        username: "davidk",
+        displayName: "David King",
+        password: "davidking",
+    },
+    {
+        id: 10,
+        username: "annat",
+        displayName: "Anna Taylor",
+        password: "annapass",
+    },
 ];
 
 export const mockProducts = [

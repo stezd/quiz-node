@@ -5,20 +5,9 @@ import {
     queryUserValidationSchema,
 } from "../utils/validationSchemas.mjs";
 import { mockUsers } from "../utils/constants.mjs";
+import { resolveIndexByUserId } from "../utils/middlewares.mjs";
 
 const router = Router();
-
-const resolveIndexByUserId = (req, res, next) => {
-    const {
-        params: { id },
-    } = req;
-    const parsedId = parseInt(id);
-    if (isNaN(parsedId)) return res.sendStatus(400);
-    const findUserIndex = mockUsers.findIndex(user => user.id === parsedId);
-    if (findUserIndex === -1) return res.sendStatus(404);
-    req.findUserIndex = findUserIndex;
-    next();
-};
 
 router.get("/api/users", checkSchema(queryUserValidationSchema), (req, res) => {
     const result = validationResult(req);

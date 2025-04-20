@@ -1,4 +1,3 @@
-
 # 🎯 xxxx Backend API
 
 A RESTful backend service for the xxxx 2025 platform, built with **Node.js**, **Express.js**, **PostgreSQL**, and **Prisma ORM**. This API handles user data, products, and future endpoints related to the IT-TODAY event.

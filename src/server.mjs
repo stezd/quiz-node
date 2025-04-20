@@ -2,6 +2,11 @@ import express, { json } from "express";
 import favicon from "serve-favicon";
 import * as path from "node:path";
 import { fileURLToPath } from "url";
+import { validationResult, matchedData, checkSchema } from "express-validator";
+import {
+    createUserValidationSchema,
+    queryUserValidationSchema,
+} from "./utils/validationSchemas.mjs";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -53,25 +58,36 @@ app.get("/", (req, res) => {
     res.status(201).send("Selamat datang di API!");
 });
 
-app.get("/api/users", (req, res) => {
-    console.log(req.query);
-    const {
-        query: { filter, value },
-    } = req;
+app.get("/api/users", checkSchema(queryUserValidationSchema), (req, res) => {
+    const result = validationResult(req);
+    console.log(result);
+    if (Object.keys(req.query).length === 0) return res.send(mockUsers);
+    else if (!result.isEmpty())
+        return res.status(400).send({ errors: result.array() });
 
-    // assuming filter is gonna be username or displayName
-    if (filter && value)
-        return res.send(mockUsers.filter(user => user[filter].includes(value)));
+    const data = matchedData(req);
+    console.log(data);
 
-    // edge case
-    res.send(mockUsers);
+    const queryResult = mockUsers.filter(user =>
+        user[data.filter]?.includes(data.value)
+    );
+
+    res.send(queryResult);
 });
 
-app.post("/api/users", (req, res) => {
-    const { body } = req;
+app.post("/api/users", checkSchema(createUserValidationSchema), (req, res) => {
+    const result = validationResult(req);
+    console.log(result);
+
+    if (!result.isEmpty())
+        return res.status(400).send({ errors: result.array() });
+
+    const data = matchedData(req);
+
+    console.log(data);
     const newUser = {
         id: parseInt(mockUsers[mockUsers.length - 1].id + 1),
-        ...body,
+        ...data,
     };
     // noinspection JSCheckFunctionSignatures
     mockUsers.push(newUser);

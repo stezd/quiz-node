@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import routes from "./routes/index.mjs";
 import session from "express-session";
 import passport from "passport";
+import mongoose from "mongoose";
 import "./strategies/local-strategy.mjs";
 
 const app = express();
@@ -14,6 +15,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.resolve(path.dirname(__filename), "..");
 
 //middlewares
+mongoose
+    .connect(`mongodb://localhost:27017/express`)
+    .then(() => console.log("Connected to mongoDB localhost"))
+    .catch(err => console.log(`Error while connecting mongoDB: ${err}`));
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 app.use(cookieParser("helloworld"));
 app.use(json());

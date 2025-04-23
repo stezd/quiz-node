@@ -15,7 +15,11 @@ passport.deserializeUser(async (id, done) => {
     console.log(`Inside deserializer`);
     console.log(`Deserializing user ID: ${id}`);
     try {
-        const findUser = await User.findById(id);
+        // Try local users first, fall back to GitHub users
+        let findUser = await User.findById(id);
+        if (!findUser) {
+            findUser = await GithubUser.findById(id);
+        }
         if (!findUser) throw new Error("User not found");
         done(null, findUser);
     } catch (err) {

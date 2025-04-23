@@ -1,5 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
+import "../strategies/github-strategy.mjs";
 
 const router = Router();
 
@@ -23,4 +24,13 @@ router.post("/api/auth/logout", (req, res) => {
         res.send(200);
     });
 });
+
+router.get("/api/auth/github", passport.authenticate("github"));
+router.get(
+    "/api/auth/github/redirect",
+    passport.authenticate("github"),
+    (req, res) => {
+        res.sendStatus(200);
+    }
+);
 export default router;

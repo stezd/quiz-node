@@ -19,6 +19,21 @@ export const createUserValidationSchema = {
             errorMessage: "displayName tidak boleh kosong!",
         },
     },
+    password: {
+        notEmpty: {
+            errorMessage: "password tidak boleh kosong!",
+        },
+        isString: {
+            errorMessage: "password harus bertipe string!",
+        },
+        isLength: {
+            options: {
+                min: 8,
+                max: 32,
+            },
+            errorMessage: "password harus 8-32 karakter.",
+        },
+    },
 };
 
 export const queryUserValidationSchema = {

@@ -8,7 +8,7 @@ const GithubUserSchema = new mongoose.Schema({
     },
     githubId: {
         type: mongoose.Schema.Types.String,
-        require: true,
+        required: true,
         unique: true,
     },
     email: {

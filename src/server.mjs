@@ -7,7 +7,9 @@ import routes from "./routes/index.mjs";
 import session from "express-session";
 import passport from "passport";
 import mongoose from "mongoose";
-import "./strategies/local-strategy.mjs";
+//import "./strategies/local-strategy.mjs";
+import MongoStore from "connect-mongo";
+import "@dotenvx/dotenvx/config";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -30,6 +32,9 @@ app.use(
         cookie: {
             maxAge: 60000 * 60 * 24 * 7,
         },
+        store: MongoStore.create({
+            client: mongoose.connection.getClient(),
+        }),
     })
 );
 app.use(passport.initialize());
